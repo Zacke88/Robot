@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 
-public class TestRobot2
+public class TestRobot3
 {
         private Position[] path;
         private ObjectMapper mapper;
@@ -34,7 +34,7 @@ public class TestRobot2
     * @param host normally http://127.0.0.1
     * @param port normally 50000
     */
-   public TestRobot2(String host, int port)
+   public TestRobot3(String host, int port)
    {
       robotcomm = new RobotCommunication(host, port);
    }
@@ -48,7 +48,7 @@ public class TestRobot2
    public static void main(String[] args) throws Exception
    {    
       System.out.println("Creating Robot");
-      TestRobot2 robot = new TestRobot2("http://127.0.0.1", 50000);
+      TestRobot3 robot = new TestRobot3("http://127.0.0.1", 50000);
      
       robot.run();
    }
