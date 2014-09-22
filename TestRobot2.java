@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  * @author thomasj
  */
+
 public class TestRobot2
 {
         private Position[] path;
