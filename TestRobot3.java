@@ -1,13 +1,12 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
  
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -56,8 +55,7 @@ public class TestRobot3
  
    private void run() throws Exception
    {
-          readPath();
-          printPath();
+
          
       System.out.println("Creating response");
       LocalizationResponse lr = new LocalizationResponse();
@@ -71,8 +69,8 @@ public class TestRobot3
      
      
       // set up the request to move in a circle
-      dr.setAngularSpeed(Math.PI * 0);
-      dr.setLinearSpeed(1.0);
+      //dr.setAngularSpeed(Math.PI * 0);
+     // dr.setLinearSpeed(1.0);
  
       System.out.println("Start to move robot");
       int rc = robotcomm.putRequest(dr);
@@ -163,14 +161,44 @@ public class TestRobot3
                 }
         }
        
-        private void betaMove(LocalizationResponse lr, DifferentialDriveRequest dr)     {
-                lr.getPosition();
-               
-               
-               
-               
+       private void betaMove(LocalizationResponse lr, DifferentialDriveRequest dr) throws Exception     {
+    	   
+    	   int i = 0, rc, goal = 0;
+    	   double dx, dy;
+   	   
+    	       	   
+           readPath();
+           printPath();
+    	   
+    	    while(goal == 0)	{
+    	    	
+    	    	try
+    	         {
+    	            Thread.sleep(5000);
+    	         }
+    	         catch (InterruptedException ex) {}
+    	        	
+    	    	
+       	    robotcomm.getResponse(lr);
+       	    
+       	    Position currentPos = new Position(getPosition(lr));
+       	    Position targetPos = new Position(path[i].getX(), path[i].getY());
+       	    
+       	    currentPos.getDistanceTo(targetPos);
+       	    currentPos.getBearingTo(targetPos);
+       	    
+
+  	    //  dr.setAngularSpeed(Math.atan2(dy, dx));
+  	  //    dr.setLinearSpeed(1.0);
+
+  	      rc = robotcomm.putRequest(dr);
+    	    
+    	    i++;
+    	    }
+    	     
+  
        
-        }
+       }
        
         }
  
